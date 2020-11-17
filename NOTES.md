@@ -21,7 +21,6 @@ User adds player, returns to *
 - Add up to 5 players to line up
 
 Classes:
-- Scraper
 - Player
 - CLI
 
@@ -34,15 +33,6 @@ Name
 position
 jersey_number
 bio_url
-Height
-Weight
-Country
-Last Attended
-Age
-Birthdate
-Draft
-Experience
-
 
 
 OPEN:
