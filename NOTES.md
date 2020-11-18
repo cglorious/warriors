@@ -1,41 +1,25 @@
 - A command line interface coaching simulation to create a Warriors starting line-up
 
-User types warriors
-
 User greeted as a coach
-- create a starting line-up with 5 players
-- Center, Power Forward, Small Forward, Point Guard, Shooting Guard (3 forwards, two guards)
+- show roster in a numbered list
+- search by number 1 - 13
+- show bio
+- ask to see another player's bio or exit
 
-*Show roster 
-- by position
-  > position roster
-- search by name
-  > choose by name
-- all
-
-Shows bio
 Data: https://www.nba.com/warriors/roster
-- Bio: position, jersey_number, bio_url, Height, Weight, Country, Last Attended, Age, Birthdate, Draft, Experience
-
-User adds player, returns to *
-- Add up to 5 players to line up
+- Bio: name, position, jersey_number, bio_url
+- More: Height, Weight, Country, Last Attended, Age, Birthdate, Draft, Experience
 
 Classes:
 - Player
 - CLI
+- Scraper
 
 Note:
 - use repl.it to test
 
-What is a player?
-
-Name
-position
-jersey_number
-bio_url
-
-
-OPEN:
-cd warriors
-code .
-./bin/warriors
+What is a Player?
+- Name
+- position
+- jersey_number
+- bio_url
