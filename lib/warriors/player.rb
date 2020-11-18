@@ -54,7 +54,6 @@ class Warriors::Player
       else
         self.bio
       end
-    Warriors::CLI.what_next
 
   end
 

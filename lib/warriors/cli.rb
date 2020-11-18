@@ -12,11 +12,7 @@ class Warriors::CLI
     input = gets.strip
     case input.upcase
       when "VIEW"
-        Warriors::Player.roster
-        sleep 3
-        puts "Which bio would you like to view?"
-        sleep 3
-        Warriors::Player.bio
+        view
       when "EXIT"
         exit_time
       else
@@ -25,28 +21,32 @@ class Warriors::CLI
       end
   end
 
-  #instance or class method?
-  def self.what_next
+  def view
+    Warriors::Player.roster
+    sleep 2
+    puts "Which bio would you like to view?"
+    sleep 2
+    Warriors::Player.bio
+    what_next
+  end
+
+  def what_next
+    sleep 2
     puts "Would you like to learn about another player? Type Y to view the roster or N to exit."
     input = gets.strip
     case input.upcase
       when "Y"
-        Warriors::Player.roster
-        sleep 3
-        puts "Which bio would you like to view?"
-        sleep 3
-        Warriors::Player.bio
+        view
       when "N"
-        puts "Thanks for your help, coach! Goodbye!"
-        exit
+        exit_time
       else
         puts "Please enter a valid option."
-        self.what_next
+        what_next
       end
   end
 
   def exit_time
-    puts "Thanks for your help, coach! Goodbye!"
+    puts "See you next time, coach!"
     exit
   end
 
