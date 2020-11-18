@@ -1,53 +1,66 @@
 class Warriors::CLI
 
-  @@all = []
-
   def call
     puts "Welcome to the Warriors, coach! It's time to learn about your team."
-    roster
+    sleep 2
+    @input = ""
+    until @input.upcase == "EXIT"
+      get_roster
+      list_roster
+      user_choice
+      what_next
+    end
+    goodbye
   end
 
-  def roster
-    puts "To view your roster, type VIEW. To exit, type EXIT."
-    input = gets.strip
-    case input.upcase
-      when "VIEW"
-        view
-      when "EXIT"
-        exit_time
-      else
-        puts "Please choose a valid option."
-        roster
-      end
+  def get_roster
+    @players = Warriors::Player.all
   end
 
-  def view
-    Warriors::Player.roster
+  def list_roster
+    puts "Here is your roster."
+    @players.each.with_index(1) do |player, index|
+      puts "#{index}. #{player.name}"
+    end
+  end
+
+  def user_choice
     sleep 2
     puts "Which bio would you like to view?"
     sleep 2
-    Warriors::Player.bio
-    what_next
+    puts "Choose an option between 1 and 13."
+    input = gets.strip.to_i
+    if valid_input(input)
+      show_bio(input)
+    else
+      puts "Please choose a valid option."
+      user_choice
+    end
   end
+
+  def valid_input(input)
+    input.between?(1,13)
+  end
+
+  def show_bio(input)
+    player = @players[input - 1]
+    puts "#{player.name} is a #{player.position}. His jersey is number #{player.jersey}."
+    sleep 2
+    puts "More info can be found at: #{player.bio_url}"
+    sleep 2
+  end
+
+  #would you like to learn more about this player
+  #look into player bio and capture additional information
 
   def what_next
-    sleep 2
-    puts "Would you like to learn about another player? Type Y to view the roster or N to exit."
-    input = gets.strip
-    case input.upcase
-      when "Y"
-        view
-      when "N"
-        exit_time
-      else
-        puts "Please enter a valid option."
-        what_next
-      end
+    puts "Would you like to learn more? Press the enter key to view the roster. Type EXIT to leave the court."
+    @input = gets.strip
   end
 
-  def exit_time
+  def goodbye
     puts "See you next time, coach!"
-    exit
+    sleep 2
   end
 
 end
