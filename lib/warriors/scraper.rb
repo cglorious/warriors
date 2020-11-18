@@ -6,52 +6,31 @@ class Warriors::Scraper
     doc = Nokogiri::HTML(open("https://www.nba.com/warriors/roster"))
     results = doc.css("div.roster__player")
     
-    array = results.each.with_index(1) do |r, i|
-      player = self.new
-      player.name = r.css("h2.roster__player__header__heading").text
-      player.position = r.css("div.roster__player__header_position").text.strip
-      player.jersey = r.css("div.roster__player__header_jnumber").text.strip
-      player.bio_url = r.css(".roster__player__footer").css("a").attr("href").value
-      puts "#{i}. #{player.name}"
+    results.each.with_index(1) do |r, i|
+      name = r.css("h2.roster__player__header__heading").text
+      puts "#{i}. #{name}"
+      #Warriors::Player.new(name, position, jersey, bio_url) - create new player object
     end
-    #self.all << array
+    #Warriors::Player.all << array - add players to array
   end
 
-  def self.info
-    sleep 2
-    puts "Choose an option between 1 and 13."
-    input = gets.strip
+    #scrape bio information
+    #create and save Player object into player class
 
-    case input.to_i
-      when 1
-        puts "Ky Bowman"
-      when 2
-        puts "Marquese Chriss"
-      when 3
-        puts "Stephen Curry"
-      when 4
-        puts "Draymond Green"
-      when 5
-        puts "Damion Lee"
-      when 6
-        puts "Kevon Looney"
-      when 7
-        puts "Mychal Mulder"
-      when 8
-        puts "Eric Paschall"
-      when 9
-        puts "Jordan Poole"
-      when 10
-        puts "Alan Smailagic"
-      when 11
-        puts "Klay Thompson"
-      when 12
-        puts "Juan Toscano-Anderson"
-      when 13
-        puts "Andrew Wiggins"
-      else
-        self.info
+  def self.scrape_bio
+    doc = Nokogiri::HTML(open("https://www.nba.com/warriors/roster"))
+    results = doc.css("div.roster__player")
+    
+    results.each.with_index(1) do |r, i|
+      name = r.css("h2.roster__player__header__heading").text
+      position = r.css("div.roster__player__header_position").text.strip
+      jersey = r.css("div.roster__player__header_jnumber").text.strip
+      bio_url = r.css(".roster__player__footer").css("a").attr("href").value
+      puts "#{i}. #{name}"
+      #create new player object
+      Warriors::Player.new(name, position, jersey, bio_url)
     end
+    #add players to array
   end
 
 end
