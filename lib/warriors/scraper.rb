@@ -15,4 +15,9 @@ class Warriors::Scraper
     end
   end
 
+  #def self.scrape_full_bio
+    #use bio_url and scrape information in each profile;
+    #iterate through existing Warriors::Player.all, add information to object
+  #end
+
 end
