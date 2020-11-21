@@ -30,7 +30,7 @@ class Warriors::CLI
   def user_choice
     puts ""
     puts "Which bio would you like to view?"
-    puts "Choose an option between 1 and 13."
+    puts "Choose an option between 1 and #{@players.length}."
     @input = gets.strip
     if valid_input(@input.to_i)
       show_bio(@input.to_i)
@@ -44,13 +44,20 @@ class Warriors::CLI
   end
 
   def valid_input(i)
-    i.between?(1,13)
+    i.between?(1,@players.length)
   end
 
   def show_bio(i)
     puts ""
+    @no_jersey = ["Justianian Jessup", "Nico Mannion", "James Wiseman"]
+
+
     @player = @players[i - 1]
+    if @no_jersey.each {|p| p == @player.name}
+      puts puts "#{@player.name} is a #{@player.position}. His jersey is number is yet to be determined."
+    else
     puts "#{@player.name} is a #{@player.position}. His jersey is number #{@player.jersey}."
+    end
     #puts "More info can be found at: #{@player.bio_url}"
     view_full_bio?
     what_next
