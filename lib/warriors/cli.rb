@@ -49,43 +49,16 @@ class Warriors::CLI
 
   def show_bio(i)
     puts ""
-    @no_jersey = ["Justianian Jessup", "Nico Mannion", "James Wiseman"]
-
-
     @player = @players[i - 1]
-    if @no_jersey.each {|p| p == @player.name}
-      puts puts "#{@player.name} is a #{@player.position}. His jersey is number is yet to be determined."
-    else
-    puts "#{@player.name} is a #{@player.position}. His jersey is number #{@player.jersey}."
-    end
-    #puts "More info can be found at: #{@player.bio_url}"
-    view_full_bio?
+      puts "#{@player.name} is a #{@player.position}."
+      
+      if @player.jersey.to_i > 0
+        puts "His jersey number is #{@player.jersey}."
+      elsif @player.jersey == 0
+        puts "His jersey number is yet to be determined."
+      end
+    add_player
     what_next
-  end
-
-  def view_full_bio?
-    puts ""
-    puts "Type B to view this player's full bio. Type S to skip."
-    @input = gets.strip
-    case @input.upcase
-    when "B"
-      full_bio
-      add_player
-    when "S"
-      add_player
-    when "EXIT"
-      puts "Thanks for learning more about the Warriors."
-      goodbye
-    else
-      puts "Please choose a valid option."
-      view_full_bio?
-    end
-  end
-
-  def full_bio
-    puts ""
-    puts "Here is #{@player.name}'s bio."
-    #stub - will retrieved scraped data from player
   end
 
   def add_player
