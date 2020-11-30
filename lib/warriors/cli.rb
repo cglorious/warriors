@@ -3,7 +3,7 @@ class Warriors::CLI
   @@lineup = []
 
   def call
-    puts "Welcome to the Warriors, coach!"
+    puts "Welcome to the Warriors, Coach!"
     puts "It's time to choose your starting lineup."
     @input = ""
 
@@ -51,7 +51,6 @@ class Warriors::CLI
     puts ""
     @player = @players[i - 1]
       puts "#{@player.name} is a #{@player.position}."
-      
       if @player.jersey.to_i > 0
         puts "His jersey number is #{@player.jersey}."
       elsif @player.jersey == 0
@@ -76,6 +75,8 @@ class Warriors::CLI
         end
       when "N"
         puts "Tough call, but we trust your decision."
+      when "EXIT"
+        goodbye
       else
         puts "Please choose a valid option."
         add_player
@@ -84,57 +85,68 @@ class Warriors::CLI
 
   def lineup
     puts ""
-    current = @@lineup.length
-    case current
+    case lineup_length
       when 0
         puts "There is no one in your lineup."
         puts "Remember, you will need to choose 5 players in total."
       when (1..3)
         puts "This is your lineup:"
-        iterate
+        current_lineup
         remainder
         puts "You need #{remainder} more players in your lineup."
       when 4
         puts "This is your lineup:"
-        iterate
+        current_lineup
         remainder
         puts "You need #{remainder} more player in your lineup."
       when 5
         puts "Congratulations! You chose five players!"
-        iterate
+        done?
       end
     what_next
+  end
+
+  def lineup_length
+    @@lineup.length
   end
 
   def change(input)
     case input
     when (1..5)
       @@lineup.delete_at(input - 1)
+      @@lineup
+    when "BACK"
       what_next
     else
       puts "Apologies - that is an incorrect input."
-      what_next
     end
   end
 
-  def iterate
+  def current_lineup
     @@lineup.each.with_index(1) do |player, index|
-      puts "#{index}. #{player.name}"
+      puts "#{index}. #{player.name} - #{player.position}"
     end
   end
 
   def remainder
-    remainder = 5 - @@lineup.length
+    remainder = 5 - lineup_length
   end
 
   def done?
-    puts "Would you like solidify your starting lineup?" 
-    iterate
-    puts "Type EXIT to keep your lineup and exit." 
+    if lineup_length == 5
+      puts ""
+      puts "Would you like solidify your starting lineup?"
+    else
+      what_next
+    end 
+    current_lineup
+    puts ""
+    puts "Type S to solidify your lineup and exit." 
     puts "Type C to change your lineup."
     @input = gets.strip
     case @input.upcase
-      when "EXIT"
+      when "S"
+        puts ""
         puts "Thanks for your expertise!"
         goodbye
       when "C"
@@ -147,8 +159,18 @@ class Warriors::CLI
 
   def what_next
     puts ""
-    case @@lineup.length
+
+    if lineup_length == 0
+      puts "There are no players in your lineup."
+    elsif lineup_length == 1
+      puts "There is #{lineup_length} player in your lineup."
+    elsif lineup_length == 2 || 3 || 4 || 5
+      puts "There are #{lineup_length} players in your lineup."
+    end
+    
+    case lineup_length
     when (0..4)
+      puts ""
       puts "What would you like to do now?"
       puts "Type L to view your lineup."
       puts "Type C to change your lineup."
@@ -161,7 +183,7 @@ class Warriors::CLI
         when "C"
           when_c
         when "R"
-          get_roster
+          list_roster
         when "EXIT"
           puts "Ta-ta!"
         else
@@ -169,33 +191,55 @@ class Warriors::CLI
           what_next
         end
     when 5
-      until @input == "EXIT"
-        done? 
-      end
+        lineup 
     end
   end
 
   def when_c
     puts ""
-    case @@lineup.length
+    case lineup_length
       when 0
         puts "There are no players in your lineup."
         what_next
       when 1
-        iterate
-        puts "Type 1 to remove this player."
+        current_lineup
+        puts "Type 1 to remove this player. Type BACK to go back."
         @input = gets.strip
-        change(@input.to_i)
+        if @input.to_i == 1
+          change(@input.to_i)
+          what_next
+        elsif @input.upcase == "BACK"
+          what_next
+        else
+          puts "Please choose a valid option."
+          when_c
+        end 
       when 2
-        iterate
-        puts "Type 1 or 2 to remove player."
+        current_lineup
+        puts "Type 1 or 2 to remove player. Type BACK to go back."
         @input = gets.strip
-        change(@input.to_i)
+        if @input.to_i == 1 || 2
+          change(@input.to_i)
+          what_next
+        elsif @input.upcase == "BACK"
+          what_next
+        else
+          puts "Please choose a valid option."
+          when_c
+        end 
       when (3..5)
-        iterate
-        puts "Choose a number between 1 and #{@@lineup.length} to remove player."
+        current_lineup
+        puts "Choose a number between 1 and #{lineup_length} to remove player. Type BACK to go back."
         @input = gets.strip
-        change(@input.to_i)
+        if @input.to_i == 1 || 2 || 3 || 4 || 5
+          change(@input.to_i)
+          what_next
+        elsif @input.upcase == "BACK"
+          what_next
+        else
+          puts "Please choose a valid option."
+          when_c
+        end 
       end
   end
 

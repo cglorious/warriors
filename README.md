@@ -1,6 +1,6 @@
 # Warriors
 
-Find out more about the Warriors roster, and build your starting lineup!
+Welcome, Coach! In this gem, you are the newest Warriors coach and your team is counting on you to create the starting lineup for the game. Find out more about the Warriors roster, and build your starting lineup!
 
 ## Installation
 
