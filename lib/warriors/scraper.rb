@@ -1,7 +1,5 @@
 class Warriors::Scraper
 
-  attr_accessor :name, :position, :jersey, :bio_url
-
   def self.scrape_roster
     doc = Nokogiri::HTML(open("https://www.nba.com/warriors/roster"))
     results = doc.css("div.roster__player")

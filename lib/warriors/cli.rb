@@ -2,17 +2,20 @@ class Warriors::CLI
 
   @@lineup = []
 
+  @@hello_array = ["Welcome to the Warriors, Coach!", "Hey there, Coach!", "Glad you could join us, Coach!", "So happy to see you, Coach!", "Just in time, coach. We need your expertise!"]
+  @@no_array = ["Tough call...", "Okay, we trust your decision.", "Alright, Coach!", "Ah... makes sense.", "Choices, choices. Am I right?", "You sure...? Alright then..."]
+  @@invalid_array = ["Please choose a valid option.", "Does... not... compute.", "Sorry... I didn't quite get that.", "Apologies - that is an incorrect input.", "Could you try that again, coach?"]
+  @@bye_array = ["See you next time, Coach!", "Ta-ta!", "Thanks for your expertise!", "Thanks for joining us on the court.", "Until next time!"]
+
   def call
-    puts "Welcome to the Warriors, Coach!"
+    puts @@hello_array.sample
     puts "It's time to choose your starting lineup."
     @input = ""
-
-    until @input.upcase == "EXIT"
+    until @input.upcase == "EXIT" || lineup_length == 5
       get_roster
       list_roster
       user_choice
     end
-
   end
 
   def get_roster
@@ -35,10 +38,9 @@ class Warriors::CLI
     if valid_input(@input.to_i)
       show_bio(@input.to_i)
     elsif @input.upcase == "EXIT"
-      puts "Thanks for joining us on the court."
       goodbye
     else
-      puts "Please choose a valid option."
+      uh_oh
       user_choice
     end
   end
@@ -74,11 +76,11 @@ class Warriors::CLI
           puts "#{@player.name} is already in your lineup."
         end
       when "N"
-        puts "Tough call, but we trust your decision."
+        puts @@no_array.sample
       when "EXIT"
         goodbye
       else
-        puts "Please choose a valid option."
+        uh_oh
         add_player
       end
   end
@@ -99,9 +101,6 @@ class Warriors::CLI
         current_lineup
         remainder
         puts "You need #{remainder} more player in your lineup."
-      when 5
-        puts "Congratulations! You chose five players!"
-        done?
       end
     what_next
   end
@@ -114,12 +113,12 @@ class Warriors::CLI
     case input
     when (1..5)
       @@lineup.delete_at(input - 1)
-      @@lineup
-    when "BACK"
+    when "B"
       what_next
     else
-      puts "Apologies - that is an incorrect input."
+      uh_oh
     end
+    lineup
   end
 
   def current_lineup
@@ -132,13 +131,14 @@ class Warriors::CLI
     remainder = 5 - lineup_length
   end
 
+  def uh_oh
+    puts ""
+    puts @@invalid_array.sample
+  end
+
   def done?
-    if lineup_length == 5
-      puts ""
-      puts "Would you like solidify your starting lineup?"
-    else
-      what_next
-    end 
+    puts ""
+    puts "Would you like solidify your starting lineup?" if lineup_length == 5
     current_lineup
     puts ""
     puts "Type S to solidify your lineup and exit." 
@@ -146,13 +146,11 @@ class Warriors::CLI
     @input = gets.strip
     case @input.upcase
       when "S"
-        puts ""
-        puts "Thanks for your expertise!"
         goodbye
       when "C"
         when_c
       else
-        puts "Please choose a valid option."
+        uh_oh
         done?
       end
   end
@@ -169,7 +167,8 @@ class Warriors::CLI
     end
     
     case lineup_length
-    when (0..4)
+    when 0
+    when (1..4)
       puts ""
       puts "What would you like to do now?"
       puts "Type L to view your lineup."
@@ -183,68 +182,49 @@ class Warriors::CLI
         when "C"
           when_c
         when "R"
-          list_roster
         when "EXIT"
-          puts "Ta-ta!"
+          goodbye
         else
-          puts "Please choose a valid option."
+          uh_oh
           what_next
         end
     when 5
-        lineup 
+        done? 
     end
   end
 
   def when_c
     puts ""
+    if lineup_length == 0
+      puts "You don't have any players in your lineup!"
+      what_next
+    end
+
+    current_lineup unless lineup_length == 0
     case lineup_length
-      when 0
-        puts "There are no players in your lineup."
-        what_next
       when 1
-        current_lineup
-        puts "Type 1 to remove this player. Type BACK to go back."
-        @input = gets.strip
-        if @input.to_i == 1
-          change(@input.to_i)
-          what_next
-        elsif @input.upcase == "BACK"
-          what_next
-        else
-          puts "Please choose a valid option."
-          when_c
-        end 
+        puts "Type 1 to remove this player."
       when 2
-        current_lineup
-        puts "Type 1 or 2 to remove player. Type BACK to go back."
-        @input = gets.strip
-        if @input.to_i == 1 || 2
-          change(@input.to_i)
-          what_next
-        elsif @input.upcase == "BACK"
-          what_next
-        else
-          puts "Please choose a valid option."
-          when_c
-        end 
-      when (3..5)
-        current_lineup
-        puts "Choose a number between 1 and #{lineup_length} to remove player. Type BACK to go back."
-        @input = gets.strip
-        if @input.to_i == 1 || 2 || 3 || 4 || 5
-          change(@input.to_i)
-          what_next
-        elsif @input.upcase == "BACK"
-          what_next
-        else
-          puts "Please choose a valid option."
-          when_c
-        end 
-      end
+        puts "Type 1 or 2 to remove player."
+      when (3..5) 
+        puts "Choose a number between 1 and #{lineup_length} to remove player."
+    end
+    puts "Type B to go back."
+
+    @input = gets.strip
+    if @input.to_i.between?(1,lineup_length)
+      change(@input.to_i)
+    elsif @input.upcase == "B"
+      what_next
+    else
+      uh_oh
+      when_c
+    end 
   end
 
   def goodbye
-    puts "See you next time, Coach!"
+    puts ""
+    puts @@bye_array.sample
     exit
   end
 

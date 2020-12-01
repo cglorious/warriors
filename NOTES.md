@@ -29,3 +29,10 @@ Additional Features:
 
 Debugging:
 - Should the info include bio_url?
+- Consider class inheritance
+
+Gem Requirements:
+- 30 min video coding think-aloud session*
+- Edit READme
+- Video demo
+- Blog post
