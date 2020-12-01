@@ -13,19 +13,15 @@ class Warriors::CLI
     @input = ""
     until @input.upcase == "EXIT" || lineup_length == 5
       get_roster
-      list_roster
       user_choice
     end
   end
 
   def get_roster
     @players = Warriors::Player.all
-  end
-
-  def list_roster
     puts ""
     puts "Here is your roster:"
-    @players.each.with_index(1) do |player, index|
+    @players.map.with_index(1) do |player, index|
       puts "#{index}. #{player.name}"
     end
   end
@@ -34,10 +30,10 @@ class Warriors::CLI
     puts ""
     puts "Which bio would you like to view?"
     puts "Choose an option between 1 and #{@players.length}."
-    @input = gets.strip
-    if valid_input(@input.to_i)
-      show_bio(@input.to_i)
-    elsif @input.upcase == "EXIT"
+    @roster_choice = gets.strip
+    if valid_input(@roster_choice.to_i)
+      show_bio(@roster_choice.to_i)
+    elsif @roster_choice.upcase == "EXIT"
       goodbye
     else
       uh_oh
@@ -51,19 +47,31 @@ class Warriors::CLI
 
   def show_bio(i)
     puts ""
-    @player = @players[i - 1]
+    @player = Warriors::Player.find(i)
       puts "#{@player.name} is a #{@player.position}."
       if @player.jersey.to_i > 0
         puts "His jersey number is #{@player.jersey}."
       elsif @player.jersey == 0
         puts "His jersey number is yet to be determined."
       end
+    puts ""
+    puts "Would you like to learn more about this player?" 
+    puts "Type V to view player summary. Type any key to skip."
+    @input = gets.strip
+      case @input.upcase
+        when "V"
+          show_summary(@roster_choice.to_i)
+        end
     add_player
     what_next
   end
 
+  def show_summary(i)
+    Warriors::Player.summary(i)
+    puts "#{@player.name} is #{@player.height} and #{@player.weight}. He is #{@player.age} old."
+  end
+
   def add_player
-    puts ""
     puts "Would you like to add #{@player.name} to your lineup? Type Y or N."
     @input = gets.strip
     puts ""
@@ -77,6 +85,7 @@ class Warriors::CLI
         end
       when "N"
         puts @@no_array.sample
+        sleep 2
       when "EXIT"
         goodbye
       else
@@ -94,15 +103,13 @@ class Warriors::CLI
       when (1..3)
         puts "This is your lineup:"
         current_lineup
-        remainder
         puts "You need #{remainder} more players in your lineup."
       when 4
         puts "This is your lineup:"
         current_lineup
-        remainder
         puts "You need #{remainder} more player in your lineup."
       end
-    what_next
+      what_next
   end
 
   def lineup_length
@@ -125,39 +132,15 @@ class Warriors::CLI
     @@lineup.each.with_index(1) do |player, index|
       puts "#{index}. #{player.name} - #{player.position}"
     end
+    remainder
   end
 
   def remainder
     remainder = 5 - lineup_length
   end
 
-  def uh_oh
-    puts ""
-    puts @@invalid_array.sample
-  end
-
-  def done?
-    puts ""
-    puts "Would you like solidify your starting lineup?" if lineup_length == 5
-    current_lineup
-    puts ""
-    puts "Type S to solidify your lineup and exit." 
-    puts "Type C to change your lineup."
-    @input = gets.strip
-    case @input.upcase
-      when "S"
-        goodbye
-      when "C"
-        when_c
-      else
-        uh_oh
-        done?
-      end
-  end
-
   def what_next
     puts ""
-
     if lineup_length == 0
       puts "There are no players in your lineup."
     elsif lineup_length == 1
@@ -169,7 +152,6 @@ class Warriors::CLI
     case lineup_length
     when 0
     when (1..4)
-      puts ""
       puts "What would you like to do now?"
       puts "Type L to view your lineup."
       puts "Type C to change your lineup."
@@ -220,6 +202,30 @@ class Warriors::CLI
       uh_oh
       when_c
     end 
+  end
+
+  def uh_oh
+    puts ""
+    puts @@invalid_array.sample
+  end
+
+  def done?
+    puts ""
+    puts "Would you like solidify your starting lineup?" if lineup_length == 5
+    current_lineup
+    puts ""
+    puts "Type S to solidify your lineup and exit." 
+    puts "Type C to change your lineup."
+    @input = gets.strip
+    case @input.upcase
+      when "S"
+        goodbye
+      when "C"
+        when_c
+      else
+        uh_oh
+        done?
+      end
   end
 
   def goodbye

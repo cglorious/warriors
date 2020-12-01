@@ -6,5 +6,3 @@ require_relative "./warriors/scraper"
 require 'pry'
 require 'nokogiri'
 require 'open-uri'
-
-#environment with most of the requirements

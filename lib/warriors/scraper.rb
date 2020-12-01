@@ -13,4 +13,17 @@ class Warriors::Scraper
     end
   end
 
+  def self.scrape_summary(i)
+    @player_summary = Warriors::Player.find(i)
+    bio = "https:#{@player_summary.bio_url}"
+    doc = Nokogiri::HTML(open("https:#{@player_summary.bio_url}"))
+    
+    profile = doc.css("p.PlayerSummary_playerStatLabel__2f2Z8").text.split("|")
+    @player_summary.height = profile[0].gsub!(/[A-Za-z]/, '').strip
+    @player_summary.weight = profile[1].strip
+    @player_summary.age = profile[2].strip
+
+    #add bios
+  end
+
 end
