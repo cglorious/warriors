@@ -22,7 +22,7 @@ To start the CLI app run:
 
 ## Usage
 
-TODO: Write usage instructions here
+This gem is meant for basketball lovers, want-to-be coaches, and Golden State Warriors fans. I hope that software engineers and gamers alike may find joy, as well.
 
 ## Development
 
