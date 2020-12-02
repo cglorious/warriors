@@ -26,6 +26,6 @@ class Warriors::Player
 
   def self.summary(i)
     Warriors::Scraper.scrape_summary(i)
-  end
+  end 
 
 end

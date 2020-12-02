@@ -23,5 +23,5 @@ class Warriors::Scraper
     @player_summary.weight = profile[1].strip
     @player_summary.age = profile[2].strip
   end
-
+ 
 end
