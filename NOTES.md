@@ -9,7 +9,7 @@ User greeted as a coach
 
 Data: https://www.nba.com/warriors/roster
 - Bio: name, position, jersey_number
-- More: bio_url, Height, Weight, Country, Last Attended, Age, Birthdate, Draft, Experience
+- More: bio_url, height, weight, age
 
 Classes:
 - Player
@@ -22,17 +22,11 @@ What is a Player?
 - jersey_number
 
 Additional Features:
-1. Add bio_url
-2. Full bio
-- scrape data from bio_url link (height, weight, height, birthdate, last attended, draft)
-3. Conditionals to only allow 2 guards and 3 forwards
+- Conditionals to only allow 2 guards and 3 forwards
 
 Debugging:
-- Should the info include bio_url?
 - Consider class inheritance
 
 Gem Requirements:
-- 30 min video coding think-aloud session*
 - Edit READme
 - Video demo
-- Blog post

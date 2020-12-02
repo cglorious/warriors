@@ -2,11 +2,6 @@ class Warriors::CLI
 
   @@lineup = []
 
-  @@hello_array = ["Welcome to the Warriors, Coach!", "Hey there, Coach!", "Glad you could join us, Coach!", "So happy to see you, Coach!", "Just in time, coach. We need your expertise!"]
-  @@no_array = ["Tough call...", "Okay, we trust your decision.", "Alright, Coach!", "Ah... makes sense.", "Choices, choices. Am I right?", "You sure...? Alright then..."]
-  @@invalid_array = ["Please choose a valid option.", "Does... not... compute.", "Sorry... I didn't quite get that.", "Apologies - that is an incorrect input.", "Could you try that again, coach?"]
-  @@bye_array = ["See you next time, Coach!", "Ta-ta!", "Thanks for your expertise!", "Thanks for joining us on the court.", "Until next time!"]
-
   def call
     puts @@hello_array.sample
     puts "It's time to choose your starting lineup."
@@ -233,5 +228,10 @@ class Warriors::CLI
     puts @@bye_array.sample
     exit
   end
+
+  @@hello_array = ["Welcome to the Warriors, Coach!", "Hey there, Coach!", "Glad you could join us, Coach!", "So happy to see you, Coach!", "Just in time, coach. We need your expertise!"]
+  @@no_array = ["Tough call...", "Okay, we trust your decision.", "Alright, Coach!", "Ah... makes sense.", "Choices, choices. Am I right?", "You sure...? Alright then..."]
+  @@invalid_array = ["Please choose a valid option.", "Does... not... compute.", "Sorry... I didn't quite get that.", "Apologies - that is an incorrect input.", "Could you try that again, coach?"]
+  @@bye_array = ["See you next time, Coach!", "Ta-ta!", "Thanks for your expertise!", "Thanks for joining us on the court.", "Until next time!"]
 
 end

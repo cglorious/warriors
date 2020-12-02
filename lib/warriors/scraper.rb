@@ -22,8 +22,6 @@ class Warriors::Scraper
     @player_summary.height = profile[0].gsub!(/[A-Za-z]/, '').strip
     @player_summary.weight = profile[1].strip
     @player_summary.age = profile[2].strip
-
-    #add bios
   end
 
 end
