@@ -24,8 +24,4 @@ class Warriors::Player
     self.all[id - 1]
   end
 
-  def self.summary(i)
-    Warriors::Scraper.scrape_summary(i)
-  end 
-
 end

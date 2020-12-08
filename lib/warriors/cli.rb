@@ -62,7 +62,7 @@ class Warriors::CLI
   end
 
   def show_summary(i)
-    Warriors::Player.summary(i)
+    Warriors::Scraper.scrape_summary(i)
     puts "#{@player.name} is #{@player.height} and #{@player.weight}. He is #{@player.age} old."
   end
 
