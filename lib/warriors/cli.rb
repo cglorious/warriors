@@ -16,7 +16,7 @@ class Warriors::CLI
     @players = Warriors::Player.all
     puts ""
     puts "Here is your roster:"
-    @players.map.with_index(1) do |player, index|
+    @players.each.with_index(1) do |player, index|
       puts "#{index}. #{player.name}"
     end
   end
@@ -31,7 +31,7 @@ class Warriors::CLI
     elsif @roster_choice.upcase == "EXIT"
       goodbye
     else
-      uh_oh
+      error_message
       user_choice
     end
   end
@@ -62,7 +62,7 @@ class Warriors::CLI
   end
 
   def show_summary(i)
-    Warriors::Scraper.scrape_summary(i)
+    Warriors::Scraper.scrape_summary(i) if !@player.height
     puts "#{@player.name} is #{@player.height} and #{@player.weight}. He is #{@player.age} old."
   end
 
@@ -84,7 +84,7 @@ class Warriors::CLI
       when "EXIT"
         goodbye
       else
-        uh_oh
+        error_message
         add_player
       end
   end
@@ -118,7 +118,7 @@ class Warriors::CLI
     when "B"
       what_next
     else
-      uh_oh
+      error_message
     end
     lineup
   end
@@ -157,12 +157,12 @@ class Warriors::CLI
         when "L"
          lineup
         when "C"
-          when_c
+          change_input
         when "R"
         when "EXIT"
           goodbye
         else
-          uh_oh
+          error_message
           what_next
         end
     when 5
@@ -170,7 +170,7 @@ class Warriors::CLI
     end
   end
 
-  def when_c
+  def change_input
     puts ""
     if lineup_length == 0
       puts "You don't have any players in your lineup!"
@@ -194,12 +194,12 @@ class Warriors::CLI
     elsif @input.upcase == "B"
       what_next
     else
-      uh_oh
-      when_c
+      error_message
+      change_input
     end 
   end
 
-  def uh_oh
+  def error_message
     puts ""
     puts @@invalid_array.sample
   end

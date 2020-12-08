@@ -1,6 +1,7 @@
 class Warriors::Player
 
-  attr_accessor :name, :position, :jersey, :bio_url, :weight, :height, :age, :career, :before_nba, :personal
+  attr_accessor :weight, :height, :age, :career, :before_nba, :personal
+  attr_reader :name, :position, :jersey, :bio_url
   @@all = []
 
   def initialize(name, position, jersey, bio_url)
