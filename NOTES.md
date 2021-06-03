@@ -1,32 +1,21 @@
-- A command line interface coaching simulation to create a Warriors starting lineup
+## Warriors Coach
 
-User greeted as a coach
-- show roster in a numbered list
-- search by number (based on number of players on roster)
-- show bio
-- ask to add player to lineup
-- what next: view lineup, change lineup, view roster, exit
+### A command line interface coaching simulation to create a Warriors starting lineup
 
-Data: https://www.nba.com/warriors/roster
-- Bio: name, position, jersey_number
-- More: bio_url, height, weight, age
+## User Stories
 
-Classes:
-- Player
-- CLI
-- Scraper
+[  ] As Carol, I can view the Warriors roster so I know who is on the team.
+[  ] As Carol, I can view a player's bio so I can decide if I should add player to lineup.
+[  ] As Carol, I can view more information on a player.
+[  ] As Carol, I can change my lineup.
 
-What is a Player?
-- Name
-- position
-- jersey_number
+## Features / Updates:
+[  ] Add image to player bio
+[  ] Add url to player bio*
+[  ] Help feature
+[  ] Conditionals to only allow 2 guards and 3 forwards
 
-Additional Features:
-- Conditionals to only allow 2 guards and 3 forwards
-
-Debugging:
-- Consider class inheritance
-
-Gem Requirements:
-- Edit READme
-- Video demo 
+## Refactor / Debug:
+[  ] Consider class inheritance
+[  ] Update README
+[  ] Move code into multiple files
