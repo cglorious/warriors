@@ -6,14 +6,14 @@
 - [x] As Carol, I want to change my lineup.
 - [ ] As Carol, I want to choose only 2 guards and 3 forwards so I can have the best lineup against my competition.
 
-## TODO:
+## TODO
 
-### Features / Updates:
+#### Features / Updates
 - [ ] Integrate images into CLI
 - [ ] Add color to the text
 - [ ] Conditionals to only allow 2 guards and 3 forwards
 
-### Refactor / Debug:
+#### Refactor / Debug
 - [ ] Consider class inheritance*
 - [x] Update README
 - [ ] Move code into multiple files
