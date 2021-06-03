@@ -12,12 +12,9 @@ To run, clone this repo:
 
 ## Usage
 
-Run the following terminal command:
+Run the following terminal commands:
 
     $ cd warriors-coach-cli-data-gem
-
-And then execute:
-
     $ bundle install
 
 To start the CLI app run:
