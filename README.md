@@ -1,3 +1,5 @@
+![Golden State Warriors Logo](images/gs_warriors_logo.jpeg)
+
 # Warriors Coach
 
 Warriors Coach is a CLI Data Gem built while attending [Flatiron School](https://flatironschool.com/) using Ruby and Nokogiri. It is an interactive gem that scrapes data from the NBA website. Users can read the current Warriors roster, read bio information for each player, and create a starting lineup with five players.
