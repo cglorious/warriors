@@ -1,21 +1,19 @@
-## Warriors Coach
-
-### A command line interface coaching simulation to create a Warriors starting lineup
-
 ## User Stories
 
-[  ] As Carol, I can view the Warriors roster so I know who is on the team.
-[  ] As Carol, I can view a player's bio so I can decide if I should add player to lineup.
-[  ] As Carol, I can view more information on a player.
-[  ] As Carol, I can change my lineup.
+- [x] As Carol, I want to view the Warriors roster so I know who is on the team.
+- [x] As Carol, I want to view a player's bio so I can decide if I should add player to lineup.
+- [x] As Carol, I want to view more information on a player.
+- [x] As Carol, I want to change my lineup.
+- [ ] As Carol, I want to choose only 2 guards and 3 forwards so I can have the best lineup against my competition.
 
-## Features / Updates:
-[  ] Add image to player bio
-[  ] Add url to player bio*
-[  ] Help feature
-[  ] Conditionals to only allow 2 guards and 3 forwards
+## TODO:
 
-## Refactor / Debug:
-[  ] Consider class inheritance
-[  ] Update README
-[  ] Move code into multiple files
+### Features / Updates:
+- [ ] Integrate images into CLI
+- [ ] Add color to the text
+- [ ] Conditionals to only allow 2 guards and 3 forwards
+
+### Refactor / Debug:
+- [ ] Consider class inheritance*
+- [x] Update README
+- [ ] Move code into multiple files
